@@ -18,7 +18,6 @@ import { FormError } from '@/components/shared/form-error'
 import { FormSuccess } from '@/components/shared/form-success'
 import { CompanySetupSchema } from '@/schemas'
 import { addCompanyUser } from '@/actions/add-company-user'
-import { redirect } from 'next/navigation'
 
 export const NewCompanyForm = () => {
 
@@ -48,14 +47,13 @@ export const NewCompanyForm = () => {
           setSuccess(data?.success)
           // setSuccess(data.success);
           setCompanyId(data?.companyId)
-          console.log(`/dashboard?company=${data?.companyId}`)
         })
     })
   }
 
   useEffect(() => {
     if (companyId !== "") {
-      redirect(`/dashboard?company=${companyId}`)
+      window.location.assign(`/dashboard?companyId=${companyId}`)
     }
   }, [companyId])
   

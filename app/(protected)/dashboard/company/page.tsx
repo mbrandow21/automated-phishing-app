@@ -62,10 +62,21 @@ const CompanyPage = () => {
           }
         })
         .catch((error) => {
-          console.error("Failed to fetch company users:", error);
-        });
+          if (error) {
+            runRedirect()
+          }
+        })
+        .finally(() => {
+          if (companyUserRole === "USER" || companyUserRole !== null) {
+            runRedirect()
+          }
+        })
     }
   }, [companyId]);
+
+  const runRedirect = () => {
+    window.location.assign("/dashboard")
+  }
 
   const columns: ColumnDef<CompanyUser>[] = [
     {
@@ -129,45 +140,49 @@ const CompanyPage = () => {
   ]
 
   return (
-    <div className='flex flex-row text-lg'>
-      <div className='flex flex-col w-[30%] py-12 pl-12'>
-        <h1 className=' text-3xl font-bold mb-2'>
-          {userData[0] ? userData[0].company.companyName : ""}
-        </h1>
-        {/* <h2>You have the role {companyUserRole} in this company:</h2> */}
-        {companyUserRole === "ADMIN" || companyUserRole === "OWNER" && userData !== undefined &&
-        <>
-          <p className="border-2 rounded-md p-5 mb-2">Admin invite token: <br /> {userData[0].company.adminInviteToken}</p>
-          <p className="border-2 rounded-md p-5 mb-2">User invite token: <br /> {userData[0].company.userInviteToken}</p>
-        </>
-        }
-        <div className='border-2 rounded-md p-5 flex flex-col mb-2'>
-          <p className='mb-2'>Delete company:</p>
-          <Button variant="destructive">Delete</Button>
-        </div>
-        <div className='border-2 rounded-md p-5 flex flex-col'>
-          <p className='mb-2'>Create or add new company:</p>
-          <Sheet>
-            <SheetTrigger>
-              <Button className='w-full h-full'>Add</Button>
-            </SheetTrigger>
-            <SheetContent className="w-[400px] sm:w-[1200px]">
-              <SheetHeader>
-                <SheetTitle>Add a new company</SheetTitle>
-                <SheetDescription>
-                  <NewCompanyForm />
-                </SheetDescription>
-              </SheetHeader>
-            </SheetContent>
-          </Sheet>
-        </div>
-      </div>
+    <>
+      {companyUserRole &&
+        <div className='flex flex-row text-lg'>
+          <div className='flex flex-col w-[30%] py-12 pl-12'>
+            <h1 className=' text-3xl font-bold mb-2'>
+              {userData[0] ? userData[0].company.companyName : ""}
+            </h1>
+            {/* <h2>You have the role {companyUserRole} in this company:</h2> */}
+            {companyUserRole === "ADMIN" || companyUserRole === "OWNER" && userData !== undefined &&
+            <>
+              <p className="border-2 rounded-md p-5 mb-2">Admin invite token: <br /> {userData[0].company.adminInviteToken}</p>
+              <p className="border-2 rounded-md p-5 mb-2">User invite token: <br /> {userData[0].company.userInviteToken}</p>
+            </>
+            }
+            <div className='border-2 rounded-md p-5 flex flex-col mb-2'>
+              <p className='mb-2'>Delete company:</p>
+              <Button variant="destructive">Delete</Button>
+            </div>
+            <div className='border-2 rounded-md p-5 flex flex-col'>
+              <p className='mb-2'>Create or add new company:</p>
+              <Sheet>
+                <SheetTrigger>
+                  <Button className='w-full h-full'>Add</Button>
+                </SheetTrigger>
+                <SheetContent className="w-[400px] sm:w-[1200px]">
+                  <SheetHeader>
+                    <SheetTitle>Add a new company</SheetTitle>
+                    <SheetDescription>
+                      <NewCompanyForm />
+                    </SheetDescription>
+                  </SheetHeader>
+                </SheetContent>
+              </Sheet>
+            </div>
+          </div>
 
-      <div className='w-full m-12'>
-        <h1 className='text-3xl font-bold mb-2'>Company Users</h1>
-        <DataTable columns={columns} data={userData} />
-      </div>
-    </div>
+          <div className='w-full m-12'>
+            <h1 className='text-3xl font-bold mb-2'>Company Users</h1>
+            <DataTable columns={columns} data={userData} />
+          </div>
+        </div>
+      }
+    </>
   )
 }
 

@@ -6,7 +6,7 @@ export const currentUser = async () => {
   return session?.user;
 }
 
-export const currentRole = async () => {
+export const currentRole = async (companyId: string) => {
   const session = await auth();
 
   return session?.user.role;

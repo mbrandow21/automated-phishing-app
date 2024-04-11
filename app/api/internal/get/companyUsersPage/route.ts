@@ -1,6 +1,5 @@
 import { getAllCompanyUsers, getUserCompanyRole } from "@/data/company";
 import { currentUser } from "@/lib/auth";
-import { UserRole } from "@prisma/client";
 import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -18,7 +17,6 @@ export async function GET(req: NextRequest) {
       const companyUsers = await getAllCompanyUsers(companyId, role)
 
       if (companyUsers) {
-        console.log(companyUsers)
         return NextResponse.json({ companyUserData: companyUsers, userRoll: role }, { status: 200 })
       }
     }
