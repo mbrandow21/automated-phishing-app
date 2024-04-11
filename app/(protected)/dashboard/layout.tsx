@@ -4,6 +4,7 @@ import DesktopHeader from './_components/desktop-header';
 import { redirect } from 'next/navigation';
 import { getAllCompaniesByUserId, getFirstCompanyByUserId } from '@/data/company';
 import { currentUser } from '@/lib/auth';
+import { logout } from '@/actions/logout';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;

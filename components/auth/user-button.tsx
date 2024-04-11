@@ -70,7 +70,7 @@ export const UserButton = () => {
               Logout
             </DropdownMenuItem>
           </LogoutButton>
-          <DropdownMenuItem className=" hover:cursor-pointer" onClick={() => {if (theme === 'dark') setTheme('light'); if (theme === 'light') setTheme('dark')}}>
+          <DropdownMenuItem className=" hover:cursor-pointer" onClick={() => toggleTheme()}>
             {theme === 'light' ? <FaMoon className="mr-2 h-4 w-4" /> : <FaSun size={4} className="mr-2 h-4 w-4" />}
             {theme === 'light' ? "dark" : "light"}
           </DropdownMenuItem>

@@ -7,6 +7,8 @@ import React from 'react'
 import { FaHome } from "react-icons/fa";
 import { IoPerson } from "react-icons/io5";
 import { GrSchedule } from "react-icons/gr";
+import { FaBuilding } from "react-icons/fa";
+
 import { usePathname, useSearchParams } from "next/navigation";
 
 const DashboardNav = () => {
@@ -32,6 +34,9 @@ const DashboardNav = () => {
           </Link>
           <Link href={`/dashboard/contacts?companyId=${companyId}`}>
             <li className={`${pathName === "/dashboard/contacts" && 'bg-slate-100 dark:bg-slate-800'} nav-list-item`}><IoPerson size={25} /> Contacts</li>
+          </Link>
+          <Link href={`/dashboard/company?companyId=${companyId}`}>
+            <li className={`${pathName === "/dashboard/company" && 'bg-slate-100 dark:bg-slate-800'} nav-list-item`}><FaBuilding size={25} /> Company</li>
           </Link>
         </ul>
       </div>
