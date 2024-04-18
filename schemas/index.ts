@@ -66,3 +66,7 @@ export const CompanySetupSchema = z.object({
   companyName: z.string(),
   companyInviteLink: z.string(),
 })
+
+export const ChangeCompanyUserRoleSchema = z.object ({
+  newUserRole: z.string()
+})

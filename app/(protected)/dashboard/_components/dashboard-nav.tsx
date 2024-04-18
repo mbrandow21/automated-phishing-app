@@ -42,18 +42,18 @@ const DashboardNav = () => {
         <Link 
           href="/dashboard"
         >
-          <h1 className='font-extrabold text-2xl mb-16'>PhishAudits</h1>
+          <h1 className='font-extrabold text-2xl mb-16'>CompanyManager</h1>
         </Link>
         <ul>
         <Link href={`/dashboard?companyId=${companyId}`}>
             <li className={`${pathName === "/dashboard" && 'bg-slate-100 dark:bg-slate-800'} nav-list-item`}><FaHome size={25} /> Overview</li>
           </Link>
-          <Link href={`/dashboard/audits?companyId=${companyId}`}>
+          {/* <Link href={`/dashboard/audits?companyId=${companyId}`}>
             <li className={`${pathName === "/dashboard/audits" && 'bg-slate-100 dark:bg-slate-800'} nav-list-item`}><GrSchedule size={25} /> Scheduled Audits</li>          
           </Link>
           <Link href={`/dashboard/contacts?companyId=${companyId}`}>
             <li className={`${pathName === "/dashboard/contacts" && 'bg-slate-100 dark:bg-slate-800'} nav-list-item`}><IoPerson size={25} /> Contacts</li>
-          </Link>
+          </Link> */}
           {userCompanyRole !== "USER" && userCompanyRole !== null && userCompanyRole !== undefined &&
             <Link href={`/dashboard/company?companyId=${companyId}`}>
               <li className={`${pathName === "/dashboard/company" && 'bg-slate-100 dark:bg-slate-800'} nav-list-item`}><FaBuilding size={25} /> Company</li>

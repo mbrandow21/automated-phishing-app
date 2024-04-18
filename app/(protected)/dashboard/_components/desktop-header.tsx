@@ -66,23 +66,25 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({ companies }) => {
   return (
     <div className='hidden z-25 w-full h-[50px] border-b-2 lg:flex flex-row justify-between items-center px-4 gap-10'>
       <div className='flex flex-row gap-1 items-center'>
-        Company:
         <Select
           disabled={isPending}
         >
-            <SelectTrigger className='w-[180px]'>
-              <SelectValue placeholder={activeCompany?.companyName} />
+            <SelectTrigger className='w-[180px] font-semibold text-lg'>
+              <SelectValue placeholder={activeCompany?.companyName} className=' font-bold text-lg' />
             </SelectTrigger>
 
           <SelectContent>
-            {companies?.map((company: Company) => (
-              <div key={company.id} className=" relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+            {companies?.map((company: Company) => {
+              const getRidOfCurrentSelect = company.companyName===activeCompany?.companyName;
+              if (getRidOfCurrentSelect) return;
+              return (
+              <div key={company.id} className="hover:bg-accent relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
               onClick={() => {selectCompany(company)}}>
                 {company.companyName}
               </div>
-            ))}
+            )})}
             <Sheet>
-              <SheetTrigger className="relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
+              <SheetTrigger className="hover:bg-accent relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
                 Add New:
               </SheetTrigger>
               <SheetContent className="w-[400px] sm:w-[540px]">

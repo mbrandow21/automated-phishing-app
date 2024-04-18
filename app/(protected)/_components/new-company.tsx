@@ -107,7 +107,7 @@ export const NewCompanyForm = () => {
           type="submit"
           className='w-full'
         >
-          Create company
+          Add company
         </Button>
       </form>
     </Form>

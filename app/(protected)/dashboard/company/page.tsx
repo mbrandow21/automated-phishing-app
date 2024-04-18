@@ -5,7 +5,8 @@ import { useSearchParams } from 'next/navigation'
 import React, { useEffect, useState, useRef } from 'react'
 import { DataTable } from './data-table';
 import { Button } from '@/components/ui/button';
-import { toast } from 'sonner';
+import { FaRegCopy } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
 
 import { ColumnDef } from "@tanstack/react-table"
 
@@ -20,6 +21,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { NewCompanyForm } from '../../_components/new-company';
+import { ChangeUserCompanyRole } from './change-role';
 
 export type CompanyUser = {
   user: {
@@ -121,7 +123,7 @@ const CompanyPage = () => {
                     <SheetHeader>
                       <SheetTitle>Change user role</SheetTitle>
                       <SheetDescription>
-                        <NewCompanyForm /> {/* Make this actually do what I need it to */}
+                        <ChangeUserCompanyRole currentUserRole={companyUserRole} companyId={companyId} changingUserId={user.id} changinguserRole={user.userCompanyRole} /> {/* Make this actually do what I need it to */}
                       </SheetDescription>
                     </SheetHeader>
                   </SheetContent>
@@ -139,6 +141,22 @@ const CompanyPage = () => {
     },
   ]
 
+  const [userTokenCopied, setUserTokenCopied] = useState<boolean>(false)
+  const [adminTokenCopied, setAdminTokenCopied] = useState<boolean>(false)
+
+  const copyUserToken = () => {
+    if (userData[0].company.userInviteToken) {
+      navigator.clipboard.writeText(userData[0].company.userInviteToken)
+      setUserTokenCopied(true)
+    }
+  }
+  const copyAdminToken = () => {
+    if (userData[0].company.adminInviteToken) {
+      navigator.clipboard.writeText(userData[0].company.adminInviteToken)
+      setAdminTokenCopied(true)
+    }
+  }
+
   return (
     <>
       {companyUserRole &&
@@ -150,8 +168,32 @@ const CompanyPage = () => {
             {/* <h2>You have the role {companyUserRole} in this company:</h2> */}
             {companyUserRole === "ADMIN" || companyUserRole === "OWNER" && userData !== undefined &&
             <>
-              <p className="border-2 rounded-md p-5 mb-2">Admin invite token: <br /> {userData[0].company.adminInviteToken}</p>
-              <p className="border-2 rounded-md p-5 mb-2">User invite token: <br /> {userData[0].company.userInviteToken}</p>
+              <div className="border-2 rounded-md p-5 mb-2 flex flex-col">
+                <div className='mb-2 flex flex-row items-center'>
+                  <p className='mr-2'>
+                    Admin invite token:
+                  </p>
+                  <FaRegCopy size={20} onClick={() => copyAdminToken()} className={`hover:cursor-pointer ${adminTokenCopied && 'hidden'}`} />
+                  <FaCheck size={20} onClick={() => copyAdminToken()} className={`hover:cursor-pointer ${!adminTokenCopied && 'hidden'}`} />
+                </div>
+                <p>
+                  {userData[0].company.adminInviteToken}
+                </p>
+                <Button>Change</Button>
+              </div>
+              <div className="border-2 rounded-md p-5 mb-2 flex flex-col">
+                <div className='mb-2 flex flex-row items-center'>
+                  <p className='mr-2'>
+                    User invite token: 
+                  </p>
+                  <FaRegCopy size={20} onClick={() => copyUserToken()} className={`hover:cursor-pointer ${userTokenCopied && 'hidden'}`} />
+                  <FaCheck size={20} onClick={() => copyUserToken()} className={`hover:cursor-pointer ${!userTokenCopied && 'hidden'}`} />
+                </div>
+                <p>
+                   {userData[0].company.userInviteToken}
+                </p>
+                <Button>Change</Button>
+              </div>
             </>
             }
             <div className='border-2 rounded-md p-5 flex flex-col mb-2'>
