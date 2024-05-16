@@ -24,6 +24,7 @@ model Company {
   companyOwnerId    String
   owner             User          @relation(name: "CompanyOwner", fields: [companyOwnerId], references: [id])
   companyUsers      CompanyUser[]
+  companyContacts   Contact[]
 
   @@unique([companyName, companyOwnerId])
 }
@@ -71,6 +72,21 @@ model Account {
 
   @@unique([provider, providerAccountId])
 }
+
+model Contact {
+  id          String   @id @default(cuid())
+  companyId   String
+  company     Company  @relation(fields: [companyId], references: [id])
+  firstName   String?
+  lastName    String?
+  email       String   @unique
+  position    String?
+  lastAuditDate DateTime?
+  auditScore  Float?
+
+  @@index([companyId])
+}
+
 
 model VerificationToken {
   id String @id @default(cuid())

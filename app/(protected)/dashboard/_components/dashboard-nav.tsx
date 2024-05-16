@@ -50,10 +50,10 @@ const DashboardNav = () => {
           </Link>
           {/* <Link href={`/dashboard/audits?companyId=${companyId}`}>
             <li className={`${pathName === "/dashboard/audits" && 'bg-slate-100 dark:bg-slate-800'} nav-list-item`}><GrSchedule size={25} /> Scheduled Audits</li>          
-          </Link>
+          </Link> */}
           <Link href={`/dashboard/contacts?companyId=${companyId}`}>
             <li className={`${pathName === "/dashboard/contacts" && 'bg-slate-100 dark:bg-slate-800'} nav-list-item`}><IoPerson size={25} /> Contacts</li>
-          </Link> */}
+          </Link>
           {userCompanyRole !== "USER" && userCompanyRole !== null && userCompanyRole !== undefined &&
             <Link href={`/dashboard/company?companyId=${companyId}`}>
               <li className={`${pathName === "/dashboard/company" && 'bg-slate-100 dark:bg-slate-800'} nav-list-item`}><FaBuilding size={25} /> Company</li>

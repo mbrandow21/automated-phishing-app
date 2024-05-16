@@ -3,7 +3,7 @@
 import { $Enums, UserRole } from '@prisma/client';
 import { useSearchParams } from 'next/navigation'
 import React, { useEffect, useState, useRef } from 'react'
-import { DataTable } from './data-table';
+import { DataTable } from '../_components/data-table';
 import { Button } from '@/components/ui/button';
 import { FaRegCopy } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa";

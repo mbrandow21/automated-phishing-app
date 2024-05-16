@@ -47,6 +47,19 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({ companies }) => {
   const companyId = searchParams.get("companyId")
 
   useEffect(() => {
+    if (companyId && companies) {
+      // Check if the activeCompany exists within the companies array
+      const isActiveCompanyInArray = companies.some(company => company.id === companyId);
+  
+      // If activeCompany is not in the companies array, set it to the first company
+      if (!isActiveCompanyInArray) {
+        startTransition(() => {
+          setActiveCompany(companies[0]);
+          redirect(`/dashboard`)
+        });
+      }
+    }
+
     if (activeCompany && companyId !== activeCompany.id) {
       redirect(`/dashboard?companyId=${activeCompany.id}`)
     }
