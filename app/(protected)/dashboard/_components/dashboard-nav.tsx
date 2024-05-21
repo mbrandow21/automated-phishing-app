@@ -37,7 +37,7 @@ const DashboardNav = () => {
   
 
   return (
-    <div className='hidden z-0 sticky lg:flex flex-col w-[330px] h-full p-8 items-left border-r-2 justify-between'>
+    <div className='hidden z-0  lg:flex flex-col w-[330px] h-full p-8 items-left border-r-2 justify-between'>
       <div>
         <Link 
           href="/dashboard"

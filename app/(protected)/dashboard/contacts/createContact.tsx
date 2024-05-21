@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -7,37 +9,31 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { useSearchParams } from 'next/navigation'
-import { editContact } from '@/actions/edit-contact' // Adjust this import based on your project structure
+import { createContact } from '@/actions/new-contact'
 
-interface EditContactProps {
-  id: string
-  FirstName: string | undefined
-  LastName: string | undefined
-  Email: string
-  Position: string | undefined
-}
+import { useRouter } from 'next/navigation';
 
-const EditContact: React.FC<EditContactProps> = ({ id, FirstName, LastName, Email, Position }) => {
+
+// interface EditContactProps {
+//   FirstName: string | undefined
+//   LastName: string | undefined
+//   Email: string
+//   Position: string | undefined
+// }
+
+const CreateContact: React.FC = () => {
   const [isPending, startTransition] = useTransition()
 
-
-  if (FirstName === undefined) {
-    FirstName = ""
-  }
-  if (LastName === undefined) {
-    LastName = ""
-  }
-  if (Position === undefined) {
-    Position = ""
-  }
+  const searchParams = useSearchParams()
+  const companyId = searchParams.get("companyId")
 
   const form = useForm<z.infer<typeof ContactSchema>>({
     resolver: zodResolver(ContactSchema),
     defaultValues: {
-      firstName: FirstName,
-      lastName: LastName,
-      email: Email,
-      position: Position,
+      firstName: "",
+      lastName: "",
+      email: "",
+      position: "",
     }
   })
 
@@ -45,12 +41,13 @@ const EditContact: React.FC<EditContactProps> = ({ id, FirstName, LastName, Emai
     console.log(values)
 
     startTransition(() => {
-      editContact(id, values)
+      createContact(values, companyId)
       .then((data) => {
         if (data?.success) {
           window.location.reload()
         }
       })
+      
     })
   }
 
@@ -136,11 +133,11 @@ const EditContact: React.FC<EditContactProps> = ({ id, FirstName, LastName, Emai
           type="submit"
           className='w-full'
         >
-          Confirm
+          Create
         </Button>
       </form>
     </Form>
   )
 }
 
-export default EditContact
+export default CreateContact

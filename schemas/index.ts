@@ -70,3 +70,12 @@ export const CompanySetupSchema = z.object({
 export const ChangeCompanyUserRoleSchema = z.object ({
   newUserRole: z.string()
 })
+
+export const ContactSchema = z.object({
+  firstName: z.string(),
+  lastName: z.string(),
+  email: z.string().email({
+    message: "Email is required"
+  }),
+  position: z.string(),
+})
