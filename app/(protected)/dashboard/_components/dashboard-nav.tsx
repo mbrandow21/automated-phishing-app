@@ -48,9 +48,9 @@ const DashboardNav = () => {
         <Link href={`/dashboard?companyId=${companyId}`}>
             <li className={`${pathName === "/dashboard" && 'bg-slate-100 dark:bg-slate-800'} nav-list-item`}><FaHome size={25} /> Overview</li>
           </Link>
-          {/* <Link href={`/dashboard/audits?companyId=${companyId}`}>
-            <li className={`${pathName === "/dashboard/audits" && 'bg-slate-100 dark:bg-slate-800'} nav-list-item`}><GrSchedule size={25} /> Scheduled Audits</li>          
-          </Link> */}
+          <Link href={`/dashboard/audits?companyId=${companyId}`}>
+            <li className={`${pathName === "/dashboard/audits" && 'bg-slate-100 dark:bg-slate-800'} nav-list-item`}><GrSchedule size={25} /> Audits</li>          
+          </Link>
           <Link href={`/dashboard/contacts?companyId=${companyId}`}>
             <li className={`${pathName === "/dashboard/contacts" && 'bg-slate-100 dark:bg-slate-800'} nav-list-item`}><IoPerson size={25} /> Contacts</li>
           </Link>

@@ -47,8 +47,6 @@ const ContactsPage = () => {
   const searchParams = useSearchParams()
   const companyId = searchParams.get("companyId")
   const [contacts, setContacts] = useState<CompanyContacts[]>([])
-  const [editingContact, setEditingContact] = useState<CompanyContacts | null>(null)
-  const [creatingContact, setCreatingContact] = useState<boolean>(false)
   const [isPending, startTransition] = useTransition()
 
 
@@ -90,10 +88,28 @@ const ContactsPage = () => {
       cell: ({ row }) => {
         const contact = row.original
         return (
-          <Button variant="ghost" onClick={() => setEditingContact(contact)}>
-            <span className='sr-only'>Edit</span>
-            <FaEdit className='h-5 w-5' />
-          </Button>
+          <Dialog>
+          <DialogTrigger>
+            <Button variant="ghost">
+              <span className='sr-only'>Edit</span>
+              <FaEdit className='h-5 w-5' />
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Edit Contact</DialogTitle>
+              <DialogDescription>
+                <EditContact 
+                  id={contact.id}
+                  FirstName={contact.firstName ? contact.firstName : undefined}
+                  LastName={contact.lastName ? contact.lastName : undefined}
+                  Email={contact.email}
+                  Position={contact.position ? contact.position : undefined}
+                />
+              </DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
         )
       }
     },
@@ -127,60 +143,21 @@ const ContactsPage = () => {
 
   return (
     <div className='w-full'>
-
-      {editingContact &&
-        <div className='sticky mt-[50px] flex justify-center'>
-          <Card className='shadow-md w-[50vw]'>
-            <CardHeader>
-            <div className="w-full flex flex-row gap-y-4 items-center justify-between">
-              <h1 className={cn("text-3xl font-semibold", font.className)}>
-                Edit Contact
-              </h1>
-              <Button variant="ghost" onClick={() => setEditingContact(null)}>
-                <FaXmark size={35} />
-              </Button>
-            </div>
-            </CardHeader>
-            <CardContent>
-              <EditContact 
-                id={editingContact.id}
-                FirstName={editingContact.firstName ? editingContact.firstName : undefined}
-                LastName={editingContact.lastName ? editingContact.lastName : undefined} 
-                Email={editingContact.email} 
-                Position={editingContact.position ? editingContact.position : undefined} 
-              />
-            </CardContent>
-            <CardFooter>
-              {/* Add any footer content if needed */}
-            </CardFooter>
-          </Card>
-        </div>
-      }
-      {creatingContact === true && 
-        <div className='sticky mt-[50px] flex justify-center'>
-        <Card className='shadow-md w-[50vw]'>
-          <CardHeader>
-          <div className="w-full flex flex-row gap-y-4 items-center justify-between">
-            <h1 className={cn("text-3xl font-semibold", font.className)}>
-              Create Contact
-            </h1>
-            <Button variant="ghost" onClick={() => setCreatingContact(false)}>
-              <FaXmark size={35} />
-            </Button>
-          </div>
-          </CardHeader>
-          <CardContent>
-            <CreateContact />
-          </CardContent>
-          <CardFooter>
-            {/* Add any footer content if needed */}
-          </CardFooter>
-        </Card>
-      </div>
-      }
       <div className='m-12'>
         <h1 className='text-3xl font-bold mb-2'>Contacts</h1>
-        <Button className='mb-5' onClick={() => {setCreatingContact(true), setEditingContact(null)}}>Create New</Button>
+        <Dialog>
+          <DialogTrigger>
+            <Button className='mb-5'>Create New</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Create New Contact</DialogTitle>
+              <DialogDescription>
+                <CreateContact />
+              </DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
         <DataTable columns={columns} data={contacts} />
       </div>
     </div>
