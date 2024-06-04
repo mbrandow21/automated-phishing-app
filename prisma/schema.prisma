@@ -25,6 +25,7 @@ model Company {
   owner             User          @relation(name: "CompanyOwner", fields: [companyOwnerId], references: [id])
   companyUsers      CompanyUser[]
   companyContacts   Contact[]
+  AuditSchedules    AuditSchedule[]
 
   @@unique([companyName, companyOwnerId])
 }
@@ -85,7 +86,39 @@ model Contact {
   auditScore  Float?
 
   @@index([companyId])
+  EmailDetails EmailDetail[]
 }
+
+model AuditSchedule {
+  id          String   @id @default(cuid())
+  companyId   String
+  subject     String
+  body        String
+  sendDate    DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  company     Company  @relation(fields: [companyId], references: [id])
+  emailDetails EmailDetail[]
+
+  @@index([companyId])
+}
+
+model EmailDetail {
+  id             String   @id @default(cuid())
+  auditScheduleId String
+  contactId      String
+  email          String
+  sent           Boolean  @default(false)
+  sentAt         DateTime?
+
+  auditSchedule  AuditSchedule @relation(fields: [auditScheduleId], references: [id])
+  contact        Contact       @relation(fields: [contactId], references: [id])
+  
+  @@index([auditScheduleId])
+  @@index([contactId])
+}
+
 
 
 model VerificationToken {

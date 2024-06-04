@@ -1,8 +1,13 @@
 "use client"
 
 import { useState, FormEvent } from 'react';
+import { useSearchParams } from 'next/navigation'
+
 
 const AuditsPage = () => {
+  const searchParams = useSearchParams()
+  const companyId = searchParams.get("companyId")
+
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [body, setBody] = useState('');
@@ -15,7 +20,7 @@ const AuditsPage = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, subject, body, sendDate }),
+      body: JSON.stringify({ companyId, subject, body, sendDate }),
     });
     const data = await response.json();
     console.log(data);
@@ -23,13 +28,6 @@ const AuditsPage = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
       <input
         type="text"
         placeholder="Subject"
