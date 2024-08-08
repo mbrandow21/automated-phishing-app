@@ -6,7 +6,6 @@ import { ContactSchema } from '@/schemas'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { useSearchParams } from 'next/navigation'
 import { editContact } from '@/actions/edit-contact' // Adjust this import based on your project structure
 
 interface EditContactProps {

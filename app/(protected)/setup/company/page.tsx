@@ -22,6 +22,9 @@ const CompanySetupPage = () => {
       headerLabel={`Welcome! Let's begin by setting you up ${user.name}`}
     >
       <NewCompanyForm />
+      {/* <Button onClick={() => logout()}>
+        
+      </Button> */}
     </CardWrapper>
   )
 }

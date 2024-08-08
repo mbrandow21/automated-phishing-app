@@ -6,13 +6,8 @@ import { Button } from '@/components/ui/button'
 import { FaEdit } from "react-icons/fa"
 import { FaRegTrashAlt } from "react-icons/fa"
 import { DataTable } from '../_components/data-table'
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 
-import { FaXmark } from "react-icons/fa6";
 import EditContact from './editContact' // Remove the named import
-import { cn } from '@/lib/utils'
-
-import { Poppins } from "next/font/google";
 import CreateContact from './createContact'
 import { deleteContact } from '@/actions/delete-contact'
 
@@ -24,12 +19,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-
-
-const font = Poppins({
-  subsets: ["latin"],
-  weight: ["600"]
-});
 
 
 interface CompanyContacts {

@@ -11,16 +11,6 @@ import { Button } from '@/components/ui/button'
 import { useSearchParams } from 'next/navigation'
 import { createContact } from '@/actions/new-contact'
 
-import { useRouter } from 'next/navigation';
-
-
-// interface EditContactProps {
-//   FirstName: string | undefined
-//   LastName: string | undefined
-//   Email: string
-//   Position: string | undefined
-// }
-
 const CreateContact: React.FC = () => {
   const [isPending, startTransition] = useTransition()
 

@@ -79,3 +79,9 @@ export const ContactSchema = z.object({
   }),
   position: z.string(),
 })
+
+export const AuditSchema = z.object({
+  subject: z.string().min(1, "Subject is required"),
+  body: z.string().min(1, "Body is required"),
+  sendDate: z.string().min(1, "Send Date is required")
+});

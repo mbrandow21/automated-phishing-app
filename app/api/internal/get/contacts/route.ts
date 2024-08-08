@@ -17,7 +17,6 @@ export async function GET(req: NextRequest) {
     if (role) {
       const companyContacts = await getAllCompanyContacts(companyId, userId)
 
-      console.log(companyContacts)
 
       if (companyContacts) {
         return NextResponse.json({ contactData: companyContacts, userRoll: role }, { status: 200 })
